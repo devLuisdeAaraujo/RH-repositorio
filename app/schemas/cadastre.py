@@ -12,3 +12,4 @@ def listaUsuariosEntidade(db_item_lista) -> list:
     for item in db_item_lista:
         lista_cadastrados.append(cadastreEntidade(item))
     return lista_cadastrados
+
