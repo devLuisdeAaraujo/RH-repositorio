@@ -3,7 +3,7 @@ from app.routes.cadastre import CADASTRE_ROUTER
 from fastapi.middleware.cors import CORSMiddleware
 app= FastAPI()
 cliente_app = [
-    "http://localhost:5174"
+    "http://localhost:5173"
 ]
 app.include_router(CADASTRE_ROUTER)
 app.add_middleware(

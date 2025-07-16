@@ -26,26 +26,29 @@ async def buscar_usuario_pelo_id(id_jogador:int):
 async def cadastrar_usuario(id_jogador: int, usuario: Cadastre):
     usuario_dict = usuario.dict()
     usuario_dict["_id"] = id_jogador
-    cpf = str(usuario.usuario_cpf)  
+    cpf = str(usuario.usuario_cpf)
     email = str(usuario.usuario_email)
     senha = str(usuario.usuario_senha)
-    
+
+    cpf_limpo = limpar_cpf(cpf)
+
     try:
-        if not validar_cpf(cpf):
+        if not validar_cpf(cpf_limpo):
             return {"mensagem": "❌ CPF inválido. Por favor, digite corretamente."}
 
-        if cpf_existe_banco_de_dados(cpf):
+        if cpf_existe_banco_de_dados(cpf_limpo):
             return {"mensagem": "❌ CPF já cadastrado!"}
 
         if not validar_email(email):
             return {"mensagem": "❌ E-mail inválido. Por favor, digite corretamente."}
-        
+
         if email_existe_banco_de_dados(email):
             return {"mensagem": "❌ E-mail já cadastrado!"}
 
         if not verificar_senha(senha):
             return {"mensagem": "❌ Senha em formato inválido. Por favor, digite corretamente."}
 
+        usuario_dict["usuario_cpf"] = cpf_limpo
         usuario_dict["usuario_senha"] = senha_criptografada(senha)
         resultado = collection.insert_one(usuario_dict)
         return listaUsuariosEntidade(collection.find())

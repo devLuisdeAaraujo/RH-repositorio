@@ -9,16 +9,15 @@ function App() {
   const [UserCPF, setUserCPF] = useState('');
   const [UserEmail, setUserEmail] = useState('');
   const [UserSenha, setUserSenha] = useState('');
-
+  const users = {
+    usuario_nome: UserNome,
+    usuario_cpf: UserCPF,
+    usuario_email: UserEmail,
+    usuario_senha: UserSenha
+  }
   const CadastroUsuario = () => {
     const id = Date.now();
-    axios
-      .post(`http://127.0.0.1:8000/cadastra_usuario/${id}`, {
-        usuario_nome: UserNome,
-        usuario_cpf: UserCPF,
-        usuario_email: UserEmail,
-        usuario_senha: UserSenha,
-      })
+    axios.post(`http://127.0.0.1:8000/cadastra_usuario/${id}`, users)
       .then((resposta) => {
         setUserNome('');
         setUserCPF('');

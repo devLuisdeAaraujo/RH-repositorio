@@ -32,3 +32,8 @@ def verificar_senha(senha:str)->bool:
         
 def senha_criptografada(senha):
         return hashlib.sha256(senha.encode()).hexdigest()
+
+
+
+def limpar_cpf(cpf: str) -> str:
+    return re.sub(r'\D', '', cpf)  
